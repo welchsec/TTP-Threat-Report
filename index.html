@@ -920,6 +920,35 @@ function setStatus(msg, type = '') {
   spinner.className = 'spinner' + (type === 'active' ? ' visible' : '');
 }
 
+// Fallback: try to extract individual sections if full parse fails
+function extractPartialJSON(str) {
+  const result = {
+    reportTitle: 'Threat Intelligence Report',
+    analystSummary: '',
+    trendingCampaigns: [],
+    attackChains: [],
+    processWatchlist: [],
+    iocs: [],
+    ttps: []
+  };
+
+  const fields = ['reportTitle','analystSummary','trendingCampaigns','attackChains','processWatchlist','iocs','ttps'];
+  for (const field of fields) {
+    try {
+      const regex = new RegExp(`"${field}"\\s*:\\s*(\\[.*?\\]|".*?")`, 's');
+      const match = str.match(regex);
+      if (match) {
+        const val = JSON.parse(match[1]);
+        result[field] = val;
+      }
+    } catch(e) { /* skip failed field */ }
+  }
+  if (!result.ttps.length && !result.analystSummary) {
+    throw new Error('Could not parse response. The AI may have returned malformed JSON. Please try generating again.');
+  }
+  return result;
+}
+
 function updateProviderHint() {
   const provider = document.getElementById('provider').value;
   const note = document.getElementById('apiNote');
@@ -950,68 +979,46 @@ async function generateReport() {
   document.getElementById('report').innerHTML = '';
   setStatus('INITIALIZING THREAT INTELLIGENCE QUERY...', 'active');
 
-  const prompt = `You are a senior cybersecurity threat intelligence analyst. Generate a detailed, realistic, and current threat intelligence report for the sector: "${sector}", covering: "${period}" as of March 2026.
+  const prompt = `You are a cybersecurity threat intelligence analyst. Return ONLY a valid JSON object, no markdown, no text before or after. Generate a threat intel report for sector: "${sector}", period: "${period}", as of March 2026.
 
-Return ONLY a valid JSON object with this exact structure, no markdown, no preamble:
-
+JSON structure (follow exactly):
 {
   "reportTitle": "string",
-  "analystSummary": "string - 3-4 sentence executive summary",
-
+  "analystSummary": "2-3 sentences on current threat landscape",
   "trendingCampaigns": [
     {
-      "name": "string - campaign name e.g. ClickFix, FakeCaptcha, etc.",
-      "trend": "string - e.g. RISING, ACTIVE, NEW",
-      "description": "string - 2-3 sentences on how this campaign works and why it is trending",
-      "lures": ["array of 4-6 specific lure examples or delivery methods observed e.g. fake Chrome update popup, Discord CAPTCHA prompt, fake invoice PDF macro, etc."]
+      "name": "campaign name e.g. ClickFix",
+      "trend": "RISING or ACTIVE or NEW",
+      "description": "2 sentences on how it works",
+      "lures": ["lure example 1", "lure example 2", "lure example 3", "lure example 4"]
     }
   ],
-
   "attackChains": [
     {
-      "title": "string - attack chain name e.g. Social Engineering to Ransomware Deployment",
-      "description": "string - 1-2 sentence overview of who uses this chain and why",
+      "title": "attack chain name",
+      "description": "1 sentence overview",
       "steps": [
-        {
-          "phase": "string - phase name e.g. Initial Access, Execution, Persistence, Privilege Escalation, Lateral Movement, Exfiltration",
-          "action": "string - specific action taken by attacker e.g. victim clicks fake CAPTCHA, runs PowerShell command",
-          "tool": "string - specific tool, binary or malware used e.g. AnyDesk, mshta.exe, Cobalt Strike, mimikatz"
-        }
+        { "phase": "Initial Access", "action": "what attacker does", "tool": "tool used" },
+        { "phase": "Execution", "action": "what attacker does", "tool": "tool used" },
+        { "phase": "Persistence", "action": "what attacker does", "tool": "tool used" },
+        { "phase": "Privilege Escalation", "action": "what attacker does", "tool": "tool used" },
+        { "phase": "Lateral Movement", "action": "what attacker does", "tool": "tool used" }
       ]
     }
   ],
-
   "processWatchlist": [
-    {
-      "process": "string - exact process or filename e.g. AnyDesk.exe, mshta.exe, powershell.exe",
-      "type": "rmm|malware|lolbin|persistence|exfil",
-      "description": "string - why this process is suspicious and what attackers use it for",
-      "path": "string - typical path or registry key to look for e.g. C:\\Users\\Public\\AnyDesk.exe or HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"
-    }
+    { "process": "filename.exe", "type": "rmm or malware or lolbin or persistence or exfil", "description": "why suspicious", "path": "C:\\path\\or\\registry\\key" }
   ],
-
   "iocs": [
-    {
-      "type": "string - e.g. DOMAIN, IP, FILE HASH, REGISTRY KEY, URL PATTERN",
-      "value": "string - realistic but fictional IOC example"
-    }
+    { "type": "DOMAIN or IP or FILE HASH or REGISTRY KEY", "value": "example value" }
   ],
-
   "ttps": [
-    {
-      "id": "string - MITRE ATT&CK ID e.g. T1566",
-      "name": "string - TTP name",
-      "tactic": "string - MITRE tactic category",
-      "severity": "critical|high|medium|low",
-      "platforms": ["array of platforms"],
-      "description": "string - 2-3 sentences on recent observations",
-      "threatActors": ["array of threat actors"],
-      "mitigation": "string - 1-2 sentence mitigation"
-    }
+    { "id": "T1566", "name": "TTP name", "tactic": "tactic", "severity": "critical or high or medium or low", "platforms": ["Windows"], "description": "2 sentences", "threatActors": ["Actor1"], "mitigation": "1 sentence" }
   ]
 }
 
-Include: 2-3 trendingCampaigns, 2 attackChains with 5-7 steps each, 8-10 processWatchlist entries, 6-8 iocs, 6-8 ttps. Make everything specific and realistic for early 2026. For trendingCampaigns always include ClickFix or similar social engineering lure campaigns if relevant to the sector.`;
+Rules: 2 trendingCampaigns, 1 attackChain with 5 steps, 6 processWatchlist entries, 5 iocs, 5 ttps. Keep all strings concise. Return ONLY the JSON object.`;
+
 
 
   try {
@@ -1076,12 +1083,31 @@ Include: 2-3 trendingCampaigns, 2 attackChains with 5-7 steps each, 8-10 process
 
     setStatus('PROCESSING INTELLIGENCE DATA...', 'active');
 
-    // Parse JSON - strip any markdown fences
-    const clean = rawText.replace(/```json|```/g, '').trim();
+    if (!rawText) throw new Error('Empty response from API. Check your API key and try again.');
+
+    // Aggressive cleanup of common AI JSON issues
+    let clean = rawText
+      .replace(/```json/gi, '')
+      .replace(/```/g, '')
+      .replace(/[\u0000-\u001F\u007F]/g, ' ')  // remove control chars
+      .replace(/,\s*}/g, '}')                    // trailing commas in objects
+      .replace(/,\s*]/g, ']')                    // trailing commas in arrays
+      .trim();
+
+    // Find outermost JSON object
     const start = clean.indexOf('{');
     const end = clean.lastIndexOf('}');
+    if (start === -1 || end === -1) throw new Error('No valid JSON object found in response. Try generating again.');
     const jsonStr = clean.substring(start, end + 1);
-    const report = JSON.parse(jsonStr);
+
+    let report;
+    try {
+      report = JSON.parse(jsonStr);
+    } catch (parseErr) {
+      // Try to salvage by extracting just the sections we need
+      console.warn('Full parse failed, attempting field extraction...', parseErr);
+      report = extractPartialJSON(jsonStr);
+    }
 
     renderReport(report, sector, period);
     setStatus('REPORT GENERATED SUCCESSFULLY — ' + today, 'done');
