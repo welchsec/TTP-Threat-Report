@@ -534,6 +534,299 @@
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border); }
+
+  /* Section label reusable */
+  .section-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Trending Campaigns */
+  .campaigns-grid {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .campaign-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--warn);
+    padding: 1.25rem;
+    animation: slideIn 0.3s ease forwards;
+    opacity: 0;
+  }
+
+  .campaign-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .campaign-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--warn);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .campaign-trend {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--accent2);
+    border: 1px solid var(--accent2);
+    padding: 0.2rem 0.5rem;
+    letter-spacing: 0.1em;
+  }
+
+  .campaign-desc {
+    font-size: 0.85rem;
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+  }
+
+  .lure-list {
+    list-style: none;
+    margin-bottom: 0.75rem;
+  }
+
+  .lure-list li {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text);
+    padding: 0.25rem 0;
+    border-bottom: 1px solid rgba(14,74,110,0.4);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    line-height: 1.5;
+  }
+
+  .lure-list li::before {
+    content: '▸';
+    color: var(--warn);
+    flex-shrink: 0;
+    margin-top: 0.05rem;
+  }
+
+  /* Attack Chain */
+  .chains-grid {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .chain-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+    animation: slideIn 0.3s ease forwards;
+    opacity: 0;
+  }
+
+  .chain-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.03em;
+  }
+
+  .chain-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  .chain-steps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    align-items: stretch;
+  }
+
+  .chain-step {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 0.75rem;
+    flex: 1;
+    min-width: 130px;
+    position: relative;
+  }
+
+  .chain-step-num {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.25rem;
+  }
+
+  .chain-step-phase {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+    letter-spacing: 0.05em;
+  }
+
+  .chain-step-action {
+    font-size: 0.75rem;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 0.4rem;
+  }
+
+  .chain-step-tool {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--accent2);
+    background: rgba(255,77,109,0.08);
+    border: 1px solid rgba(255,77,109,0.2);
+    padding: 0.1rem 0.3rem;
+    display: inline-block;
+  }
+
+  .chain-arrow {
+    display: flex;
+    align-items: center;
+    padding: 0 0.25rem;
+    color: var(--border);
+    font-size: 1rem;
+    align-self: center;
+  }
+
+  @media (max-width: 600px) {
+    .chain-steps { flex-direction: column; }
+    .chain-arrow { transform: rotate(90deg); align-self: flex-start; margin-left: 1rem; }
+  }
+
+  /* Process Watchlist */
+  .processes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .process-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 1rem;
+    animation: slideIn 0.3s ease forwards;
+    opacity: 0;
+  }
+
+  .process-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    gap: 0.5rem;
+  }
+
+  .process-name {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--accent2);
+    letter-spacing: 0.05em;
+  }
+
+  .process-type {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    padding: 0.15rem 0.4rem;
+    border: 1px solid;
+    white-space: nowrap;
+  }
+
+  .process-type.rmm { color: var(--warn); border-color: rgba(255,190,11,0.4); }
+  .process-type.malware { color: var(--accent2); border-color: rgba(255,77,109,0.4); }
+  .process-type.lolbin { color: var(--accent); border-color: rgba(0,212,255,0.4); }
+  .process-type.persistence { color: #b39ddb; border-color: rgba(179,157,219,0.4); }
+  .process-type.exfil { color: var(--accent3); border-color: rgba(57,255,20,0.4); }
+
+  .process-desc {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+  }
+
+  .process-path {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--muted);
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 0.25rem 0.5rem;
+    word-break: break-all;
+  }
+
+  .ioc-section {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .ioc-section::before {
+    content: 'INDICATORS OF COMPROMISE (IOCs)';
+    position: absolute;
+    top: -0.5rem;
+    left: 1rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    background: var(--panel);
+    padding: 0 0.5rem;
+    letter-spacing: 0.15em;
+  }
+
+  .ioc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 0.5rem;
+  }
+
+  .ioc-item {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text);
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 0.4rem 0.6rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+    word-break: break-all;
+    line-height: 1.4;
+  }
+
+  .ioc-type {
+    color: var(--accent);
+    flex-shrink: 0;
+    font-size: 0.6rem;
+    margin-top: 0.05rem;
+  }
 </style>
 </head>
 <body>
@@ -657,28 +950,69 @@ async function generateReport() {
   document.getElementById('report').innerHTML = '';
   setStatus('INITIALIZING THREAT INTELLIGENCE QUERY...', 'active');
 
-  const prompt = `You are a senior cybersecurity threat intelligence analyst. Generate a detailed, realistic, and current threat intelligence report on the most observed TTPs (Tactics, Techniques, and Procedures) for the sector: "${sector}", covering the time period: "${period}" as of March 2026.
+  const prompt = `You are a senior cybersecurity threat intelligence analyst. Generate a detailed, realistic, and current threat intelligence report for the sector: "${sector}", covering: "${period}" as of March 2026.
 
 Return ONLY a valid JSON object with this exact structure, no markdown, no preamble:
 
 {
-  "reportTitle": "string - descriptive report title",
-  "analystSummary": "string - 3-4 sentence executive summary of the current threat landscape for this sector",
+  "reportTitle": "string",
+  "analystSummary": "string - 3-4 sentence executive summary",
+
+  "trendingCampaigns": [
+    {
+      "name": "string - campaign name e.g. ClickFix, FakeCaptcha, etc.",
+      "trend": "string - e.g. RISING, ACTIVE, NEW",
+      "description": "string - 2-3 sentences on how this campaign works and why it is trending",
+      "lures": ["array of 4-6 specific lure examples or delivery methods observed e.g. fake Chrome update popup, Discord CAPTCHA prompt, fake invoice PDF macro, etc."]
+    }
+  ],
+
+  "attackChains": [
+    {
+      "title": "string - attack chain name e.g. Social Engineering to Ransomware Deployment",
+      "description": "string - 1-2 sentence overview of who uses this chain and why",
+      "steps": [
+        {
+          "phase": "string - phase name e.g. Initial Access, Execution, Persistence, Privilege Escalation, Lateral Movement, Exfiltration",
+          "action": "string - specific action taken by attacker e.g. victim clicks fake CAPTCHA, runs PowerShell command",
+          "tool": "string - specific tool, binary or malware used e.g. AnyDesk, mshta.exe, Cobalt Strike, mimikatz"
+        }
+      ]
+    }
+  ],
+
+  "processWatchlist": [
+    {
+      "process": "string - exact process or filename e.g. AnyDesk.exe, mshta.exe, powershell.exe",
+      "type": "rmm|malware|lolbin|persistence|exfil",
+      "description": "string - why this process is suspicious and what attackers use it for",
+      "path": "string - typical path or registry key to look for e.g. C:\\Users\\Public\\AnyDesk.exe or HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"
+    }
+  ],
+
+  "iocs": [
+    {
+      "type": "string - e.g. DOMAIN, IP, FILE HASH, REGISTRY KEY, URL PATTERN",
+      "value": "string - realistic but fictional IOC example"
+    }
+  ],
+
   "ttps": [
     {
-      "id": "string - MITRE ATT&CK ID like T1566 or T1078",
+      "id": "string - MITRE ATT&CK ID e.g. T1566",
       "name": "string - TTP name",
-      "tactic": "string - MITRE tactic category (e.g. Initial Access, Execution, Persistence, etc.)",
+      "tactic": "string - MITRE tactic category",
       "severity": "critical|high|medium|low",
-      "platforms": ["array of affected platforms e.g. Windows, Linux, Cloud, etc."],
-      "description": "string - 2-3 sentence description of how this TTP is being observed in the wild recently",
-      "threatActors": ["array of known threat actors or groups using this TTP"],
-      "mitigation": "string - 1-2 sentence practical mitigation recommendation"
+      "platforms": ["array of platforms"],
+      "description": "string - 2-3 sentences on recent observations",
+      "threatActors": ["array of threat actors"],
+      "mitigation": "string - 1-2 sentence mitigation"
     }
   ]
 }
 
-Include 6-8 TTPs. Make them specific, realistic, and relevant to current (early 2026) threat landscape. Reference real MITRE ATT&CK technique IDs where possible.`;
+Include: 2-3 trendingCampaigns, 2 attackChains with 5-7 steps each, 8-10 processWatchlist entries, 6-8 iocs, 6-8 ttps. Make everything specific and realistic for early 2026. For trendingCampaigns always include ClickFix or similar social engineering lure campaigns if relevant to the sector.`;
+
 
   try {
     setStatus('QUERYING THREAT INTELLIGENCE DATABASE...', 'active');
@@ -694,7 +1028,7 @@ Include 6-8 TTPs. Make them specific, realistic, and relevant to current (early 
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             contents: [{ parts: [{ text: prompt }] }],
-            generationConfig: { maxOutputTokens: 3000, temperature: 0.7 }
+            generationConfig: { maxOutputTokens: 6000, temperature: 0.7 }
           })
         }
       );
@@ -712,7 +1046,7 @@ Include 6-8 TTPs. Make them specific, realistic, and relevant to current (early 
         },
         body: JSON.stringify({
           model: 'llama-3.3-70b-versatile',
-          max_tokens: 3000,
+          max_tokens: 6000,
           messages: [{ role: 'user', content: prompt }]
         })
       });
@@ -731,7 +1065,7 @@ Include 6-8 TTPs. Make them specific, realistic, and relevant to current (early 
         },
         body: JSON.stringify({
           model: 'meta-llama/llama-3.3-70b-instruct:free',
-          max_tokens: 3000,
+          max_tokens: 6000,
           messages: [{ role: 'user', content: prompt }]
         })
       });
@@ -771,7 +1105,62 @@ function renderReport(data, sector, period) {
   const counts = { critical: 0, high: 0, medium: 0, low: 0 };
   data.ttps.forEach(t => { if (counts[t.severity] !== undefined) counts[t.severity]++; });
 
-  const cardsHTML = data.ttps.map((ttp, i) => `
+  // Trending Campaigns
+  const campaignsHTML = (data.trendingCampaigns || []).map((c, i) => `
+    <div class="campaign-card" style="animation-delay:${i * 0.08}s">
+      <div class="campaign-header">
+        <div class="campaign-name">⚡ ${c.name}</div>
+        <div class="campaign-trend">▲ ${c.trend}</div>
+      </div>
+      <div class="campaign-desc">${c.description}</div>
+      <ul class="lure-list">
+        ${(c.lures || []).map(l => `<li>${l}</li>`).join('')}
+      </ul>
+    </div>
+  `).join('');
+
+  // Attack Chains
+  const chainsHTML = (data.attackChains || []).map((chain, i) => {
+    const stepsHTML = (chain.steps || []).map((step, si) => `
+      ${si > 0 ? '<div class="chain-arrow">→</div>' : ''}
+      <div class="chain-step">
+        <div class="chain-step-num">STEP ${si + 1}</div>
+        <div class="chain-step-phase">${step.phase}</div>
+        <div class="chain-step-action">${step.action}</div>
+        ${step.tool ? `<span class="chain-step-tool">${step.tool}</span>` : ''}
+      </div>
+    `).join('');
+    return `
+      <div class="chain-card" style="animation-delay:${i * 0.1}s">
+        <div class="chain-title">${chain.title}</div>
+        <div class="chain-desc">${chain.description}</div>
+        <div class="chain-steps">${stepsHTML}</div>
+      </div>
+    `;
+  }).join('');
+
+  // Process Watchlist
+  const processesHTML = (data.processWatchlist || []).map((p, i) => `
+    <div class="process-card" style="animation-delay:${i * 0.05}s">
+      <div class="process-header">
+        <div class="process-name">${p.process}</div>
+        <div class="process-type ${p.type}">${p.type.toUpperCase()}</div>
+      </div>
+      <div class="process-desc">${p.description}</div>
+      ${p.path ? `<div class="process-path">${p.path}</div>` : ''}
+    </div>
+  `).join('');
+
+  // IOCs
+  const iocsHTML = (data.iocs || []).map(ioc => `
+    <div class="ioc-item">
+      <span class="ioc-type">[${ioc.type}]</span>
+      <span>${ioc.value}</span>
+    </div>
+  `).join('');
+
+  // TTP Cards
+  const cardsHTML = (data.ttps || []).map((ttp, i) => `
     <div class="ttp-card ${ttp.severity}" style="animation-delay:${i * 0.08}s">
       <div class="ttp-card-header">
         <div>
@@ -782,8 +1171,8 @@ function renderReport(data, sector, period) {
       </div>
       <div class="ttp-meta">
         <span class="tag tactic">⚡ ${ttp.tactic}</span>
-        ${ttp.platforms.map(p => `<span class="tag platform">${p}</span>`).join('')}
-        ${ttp.threatActors.slice(0,3).map(a => `<span class="tag">${a}</span>`).join('')}
+        ${(ttp.platforms || []).map(p => `<span class="tag platform">${p}</span>`).join('')}
+        ${(ttp.threatActors || []).slice(0,3).map(a => `<span class="tag">${a}</span>`).join('')}
       </div>
       <div class="ttp-desc">${ttp.description}</div>
       <div class="mitigation"><strong>MITIGATION // </strong>${ttp.mitigation}</div>
@@ -805,20 +1194,46 @@ function renderReport(data, sector, period) {
       <div class="stat"><div class="stat-num high">${counts.high}</div><div class="stat-label">HIGH</div></div>
       <div class="stat"><div class="stat-num medium">${counts.medium}</div><div class="stat-label">MEDIUM</div></div>
       <div class="stat"><div class="stat-num low">${counts.low}</div><div class="stat-label">LOW</div></div>
+      <div class="stat"><div class="stat-num" style="color:var(--warn)">${(data.trendingCampaigns||[]).length}</div><div class="stat-label">CAMPAIGNS</div></div>
+      <div class="stat"><div class="stat-num" style="color:#b39ddb">${(data.processWatchlist||[]).length}</div><div class="stat-label">PROCESSES</div></div>
     </div>
 
     <div class="narrative-section">
       <div class="narrative-text">${data.analystSummary}</div>
     </div>
 
-    <div class="ttp-grid">${cardsHTML}</div>
+    ${campaignsHTML ? `
+    <div style="margin-bottom:1.5rem">
+      <div class="section-label">▲ TRENDING CAMPAIGNS &amp; LURES — OBSERVED THIS PERIOD</div>
+      <div class="campaigns-grid">${campaignsHTML}</div>
+    </div>` : ''}
+
+    ${chainsHTML ? `
+    <div style="margin-bottom:1.5rem">
+      <div class="section-label">⛓ ATTACK CHAINS — HOW THREAT ACTORS OPERATE</div>
+      <div class="chains-grid">${chainsHTML}</div>
+    </div>` : ''}
+
+    ${processesHTML ? `
+    <div style="margin-bottom:1.5rem">
+      <div class="section-label">⚙ PROCESS WATCHLIST — SUSPICIOUS EXECUTABLES &amp; TOOLS</div>
+      <div class="processes-grid">${processesHTML}</div>
+    </div>` : ''}
+
+    ${iocsHTML ? `
+    <div class="ioc-section">
+      <div class="ioc-grid">${iocsHTML}</div>
+    </div>` : ''}
+
+    <div style="margin-bottom:1.5rem">
+      <div class="section-label">🛡 MITRE ATT&amp;CK TTPs</div>
+      <div class="ttp-grid">${cardsHTML}</div>
+    </div>
   `;
 
   const reportEl = document.getElementById('report');
   reportEl.innerHTML = html;
   reportEl.className = 'visible';
-
-  // Store for export
   window._lastReport = data;
 }
 
@@ -826,7 +1241,40 @@ function exportReport() {
   if (!window._lastReport) return;
   const d = window._lastReport;
   let text = `THREAT INTELLIGENCE REPORT\nGenerated: ${today}\n${'='.repeat(60)}\n\n`;
-  text += `${d.reportTitle}\n\nANALYST SUMMARY\n${d.analystSummary}\n\n`;
+  text += `${d.reportTitle}\n\nANALYST SUMMARY\n${'-'.repeat(40)}\n${d.analystSummary}\n\n`;
+
+  if (d.trendingCampaigns?.length) {
+    text += `TRENDING CAMPAIGNS\n${'='.repeat(60)}\n\n`;
+    d.trendingCampaigns.forEach((c, i) => {
+      text += `${i+1}. ${c.name} [${c.trend}]\n${c.description}\n`;
+      text += `   Lures:\n${c.lures.map(l => `   - ${l}`).join('\n')}\n\n`;
+    });
+  }
+
+  if (d.attackChains?.length) {
+    text += `ATTACK CHAINS\n${'='.repeat(60)}\n\n`;
+    d.attackChains.forEach((chain, i) => {
+      text += `${i+1}. ${chain.title}\n${chain.description}\n`;
+      chain.steps.forEach((s, si) => {
+        text += `   Step ${si+1} [${s.phase}]: ${s.action} — Tool: ${s.tool}\n`;
+      });
+      text += '\n';
+    });
+  }
+
+  if (d.processWatchlist?.length) {
+    text += `PROCESS WATCHLIST\n${'='.repeat(60)}\n\n`;
+    d.processWatchlist.forEach(p => {
+      text += `${p.process} [${p.type.toUpperCase()}]\n   ${p.description}\n   Path: ${p.path}\n\n`;
+    });
+  }
+
+  if (d.iocs?.length) {
+    text += `INDICATORS OF COMPROMISE\n${'='.repeat(60)}\n\n`;
+    d.iocs.forEach(ioc => { text += `[${ioc.type}] ${ioc.value}\n`; });
+    text += '\n';
+  }
+
   text += `TTPs OBSERVED\n${'='.repeat(60)}\n\n`;
   d.ttps.forEach((t, i) => {
     text += `${i+1}. [${t.id}] ${t.name}\n`;
@@ -836,6 +1284,7 @@ function exportReport() {
     text += `   ${t.description}\n`;
     text += `   MITIGATION: ${t.mitigation}\n\n`;
   });
+
   const blob = new Blob([text], { type: 'text/plain' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
