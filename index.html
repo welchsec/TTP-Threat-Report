@@ -753,8 +753,14 @@ Include 6-8 TTPs. Make them specific, realistic, and relevant to current (early 
     setStatus('REPORT GENERATED SUCCESSFULLY — ' + today, 'done');
 
   } catch (err) {
-    console.error(err);
-    setStatus('ERROR: FAILED TO GENERATE REPORT. CHECK CONSOLE.', 'error');
+    console.error('Full error:', err);
+    const msg = err?.message || String(err);
+    setStatus('ERROR: ' + msg, 'error');
+    document.getElementById('placeholder').innerHTML = `
+      <div class="placeholder-icon">⚠</div>
+      <div class="placeholder-text" style="color:var(--accent2);margin-bottom:0.5rem">ERROR DETAILS:</div>
+      <div class="placeholder-text" style="color:var(--text);font-size:0.75rem;max-width:600px;margin:0 auto;line-height:1.6;word-break:break-word">${msg}</div>
+    `;
     document.getElementById('placeholder').style.display = 'block';
   }
 
